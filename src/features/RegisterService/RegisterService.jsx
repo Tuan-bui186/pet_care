@@ -13,6 +13,7 @@ import weightApi from "../../api/weightApi";
 import "../../sass/RegisterService/RegisterService.scss";
 import Banner from "../Banner/Banner";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
+import userApi from "../../api/userApi";
 
 export default function RegisterService() {
   const listBread = [
@@ -28,6 +29,7 @@ export default function RegisterService() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [weight, setWeight] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,6 +49,9 @@ export default function RegisterService() {
         dataWeight.push({ value: el.id, label: el.weight });
       });
       setWeight(dataWeight);
+    });
+    userApi.checkUser().then((ok) => {
+      setUserId({ userId: ok.id });
     });
   }, []);
 
@@ -81,6 +86,7 @@ export default function RegisterService() {
       typeService,
       typeWeight,
       date,
+      userId,
     });
   };
 

@@ -34,7 +34,7 @@ export default function InforUser() {
             </div>
             <div className="tab-item ">
               <div className="icon">{dog}</div>
-              Đăng bán thú cưng
+              Đăng kí thú cưng
             </div>
             <div className="tab-item ">
               <div className="icon">{cat}</div> Thú cưng của tôi

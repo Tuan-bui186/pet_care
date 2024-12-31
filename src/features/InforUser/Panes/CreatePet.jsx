@@ -160,7 +160,7 @@ export default function CreatePet() {
               <span className="text-danger">{errors.name.message}</span>
             )}
           </div>
-          <div className="input-admin">
+          {/* <div className="input-admin">
             <label htmlFor="">Giá</label>
             <input
               type="number"
@@ -185,7 +185,7 @@ export default function CreatePet() {
             {errors.quantity && (
               <span className="text-danger">{errors.quantity.message}</span>
             )}
-          </div>
+          </div> */}
           <div className="input-admin">
             <label htmlFor="">Mô tả</label>
             <textarea

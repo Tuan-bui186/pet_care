@@ -99,9 +99,9 @@ export default function Menu({ user, setUserMenu }) {
               <li className="item">
                 <Link to="/Shop">Cửa hàng</Link>
               </li>
-              <li className="item">
-                <Link to="">Giới thiệu</Link>
-              </li>
+              {/* <li className="item">
+                <Link to="/Appointment">Đặt lịch khám</Link>
+              </li> */}
               <li className="item">
                 <Link to="/ListNews">Tin tức</Link>
               </li>

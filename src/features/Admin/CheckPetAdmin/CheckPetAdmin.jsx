@@ -63,7 +63,7 @@ export default function CheckPetAdmin() {
     <div className="AdminTable">
       <div className="heading">
         <div className="heading__title">
-          <h3>Kiểm tra thú cưng</h3>
+          <h3>Quản lý thú cưng</h3>
         </div>
         <div className="heading__hr"></div>
       </div>

@@ -75,7 +75,7 @@ export default function NavMenu() {
           <li>
             <Link to={`${path}/CheckPet`} id="CheckPet">
               <div className="icon">{useCheck}</div>
-              <div className="text">Kiểm tra thú cưng</div>
+              <div className="text">Quản lý thú cưng</div>
             </Link>
           </li>
           <li>

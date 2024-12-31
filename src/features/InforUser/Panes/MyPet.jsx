@@ -28,52 +28,65 @@ export default function MyPet() {
       return <Tooltip title="Đã kiểm duyệt">{petCheckSuccess}</Tooltip>;
     }
   };
-  const hangdleOnclick = (status, checkAdmin, id) => {
-    if (status === 1) {
-      setData(null);
-      petApi
-        .editpet({
-          status: 0,
-          id: id,
-        })
-        .then((data) => {
-          messageShowSuccess("Ẩn thành công!");
-        })
-        .catch((err) => {
-          messageShowErr("Có lỗi xảy ra!");
-        });
-    } else {
-      if (checkAdmin === 0) {
-        setData(null);
-        petApi
-          .editpet({ checkAdmin: 1, id, id })
-          .then((data) => {
-            messageShowSuccess("Đã gửi yêu cầu duyệt tới admin!");
-          })
-          .catch((err) => {
-            messageShowErr("Có lỗi xảy ra!");
-          });
-      } else if (checkAdmin === 1) {
-        messageShowSuccess("Đang trong quá trình đợi duyệt!");
-      } else {
-        setData(null);
-        petApi
-          .editpet({
-            status: 1,
-            id: id,
-          })
-          .then((data) => {
-            messageShowSuccess("Thú cưng đã có trong cửa hàng!");
-          })
-          .catch((err) => {
-            messageShowErr("Có lỗi xảy ra!");
-          });
+  const handleDeletePet = async (petId) => {
+    if (window.confirm("Bạn có chắc chắn muốn xóa thú cưng này không?")) {
+      try {
+        await petApi.deletepet(petId);
+        messageShowSuccess("Xóa thú cưng thành công!");
+        setData(data.filter((pet) => pet.id !== petId));
+      } catch (error) {
+        console.error("Lỗi khi xóa thú cưng:", error);
+        messageShowErr("Có lỗi xảy ra khi xóa thú cưng!");
       }
     }
-    setTimeout(() => {
-      setLoad(!load);
-    }, 500);
   };
+
+  // const hangdleOnclick = (status, checkAdmin, id) => {
+  //   if (status === 1) {
+  //     setData(null);
+  //     petApi
+  //       .editpet({
+  //         status: 0,
+  //         id: id,
+  //       })
+  //       .then((data) => {
+  //         messageShowSuccess("Ẩn thành công!");
+  //       })
+  //       .catch((err) => {
+  //         messageShowErr("Có lỗi xảy ra!");
+  //       });
+  //   } else {
+  //     if (checkAdmin === 0) {
+  //       setData(null);
+  //       petApi
+  //         .editpet({ checkAdmin: 1, id, id })
+  //         .then((data) => {
+  //           messageShowSuccess("Đã gửi yêu cầu duyệt tới admin!");
+  //         })
+  //         .catch((err) => {
+  //           messageShowErr("Có lỗi xảy ra!");
+  //         });
+  //     } else if (checkAdmin === 1) {
+  //       messageShowSuccess("Đang trong quá trình đợi duyệt!");
+  //     } else {
+  //       setData(null);
+  //       petApi
+  //         .editpet({
+  //           status: 1,
+  //           id: id,
+  //         })
+  //         .then((data) => {
+  //           messageShowSuccess("Thú cưng đã có trong cửa hàng!");
+  //         })
+  //         .catch((err) => {
+  //           messageShowErr("Có lỗi xảy ra!");
+  //         });
+  //     }
+  //   }
+  //   setTimeout(() => {
+  //     setLoad(!load);
+  //   }, 500);
+  // };
   return (
     <div className="tab-pane">
       <Grid container spacing={4}>
@@ -85,11 +98,15 @@ export default function MyPet() {
               </div>
               <div className="text">
                 <div className="text_name">{ok.name}</div>
-                <div className="text_price">
+                {/* <div className="text_price">
                   {parseInt(ok.price).toLocaleString()} vnđ
+                </div> */}
+                <div className="description">
+                  <div className="detail-content-title">Mô tả</div>
+                  {ok.description}
                 </div>
 
-                <div className="detail">
+                {/* <div className="detail">
                   Chi tiết ...
                   <div className="detail-content">
                     <div className="description">
@@ -101,13 +118,15 @@ export default function MyPet() {
                       {renderHTML(ok.text)}
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="checkadmin">
                 {renderCheckAdmin(ok.checkAdmin)}
               </div>
-              <p className="btn-delete">Xoá</p>
-              {ok.status === 1 ? (
+              <p className="btn-delete" onClick={() => handleDeletePet(ok.id)}>
+                Xoá
+              </p>
+              {/* {ok.status === 1 ? (
                 <p
                   className="btn-no"
                   onClick={() => hangdleOnclick(1, ok.checkAdmin, ok.id)}
@@ -121,7 +140,8 @@ export default function MyPet() {
                 >
                   Đăng bán
                 </p>
-              )}
+              )} */}
+              <p className="btn-history">Lịch sử khám</p>
             </div>
           </Grid>
         ))}

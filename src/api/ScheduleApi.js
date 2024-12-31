@@ -45,6 +45,17 @@ class ScheduleApi {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
+  getSchedulesByUserId = (params) => {
+    const url = `/schedules/user/${params.userId}`;
+    return axiosClient
+      .get(url)
+      .then((data) => {
+        return data.data;
+      })
+      .catch((err) => {
+        messageShowErr("Có lỗi xảy ra khi lấy lịch trình của người dùng!");
+      });
+  };
 }
 const scheduleApi = new ScheduleApi();
 export default scheduleApi;

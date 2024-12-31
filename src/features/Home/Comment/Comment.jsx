@@ -65,7 +65,7 @@ export default function Comment() {
                       <div className="avatar">
                         <img src={avatar1} alt="" />
                       </div>
-                      <div className="name">Nguyễn Thị Thái</div>
+                      <div className="name">Nguyễn Minh Trung</div>
                       <div className="star">
                         <Rating value={5} readOnly />
                       </div>
@@ -119,7 +119,7 @@ export default function Comment() {
                       <div className="avatar">
                         <img src={avatar2} alt="" />
                       </div>
-                      <div className="name">Nguyễn Thị Thái</div>
+                      <div className="name">Phạm Hồng Quânn</div>
                       <div className="star">
                         <Rating value={3} readOnly />
                       </div>
@@ -174,7 +174,7 @@ export default function Comment() {
                       <div className="avatar">
                         <img src={avatar2} alt="" />
                       </div>
-                      <div className="name">Nguyễn Thị Thái</div>
+                      <div className="name">Bùi Văn Tuấn</div>
                       <div className="star">
                         <Rating value={5} readOnly />
                       </div>

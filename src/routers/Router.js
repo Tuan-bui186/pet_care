@@ -14,6 +14,7 @@ import Register from "../features/Register/Register";
 import RegisterService from "../features/RegisterService/RegisterService";
 import DetailPet from "../features/Shop/DetailPet/DetailPet";
 import ShopPet from "../features/Shop/ShopPet/ShopPet";
+import History from "../features/history/history.jsx";
 
 const Routers = (props) => {
   const { location } = props;
@@ -55,6 +56,7 @@ const Routers = (props) => {
           <Home />
         </Route>
         <Route exact path="/ListNews" component={ListNews} />
+        <Route exact path="/schedules/user/:userId" component={History} />
         <Route exact path="/Shop" component={ShopPet} />
         <Route path="/ListNews/:id" component={DetailNew} />
         <Route path="/Shop/:type/:id" component={DetailPet} />
