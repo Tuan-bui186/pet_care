@@ -4,11 +4,14 @@ import scheduleApi from "../../../api/ScheduleApi";
 import Spinner from "../Spin/Spinner";
 import "../../../sass/RegisterService/ScheduleDetail.scss";
 import { formatDate } from "../../../function";
+import petApi from "../../../api/petApi";
+
 export default function ScheduleDetail() {
   const { id } = useParams();
   console.log("id", id);
 
   const [schedule, setSchedule] = useState(null);
+  const [petDetails, setPetDetails] = useState(null);
 
   useEffect(() => {
     scheduleApi
@@ -16,6 +19,17 @@ export default function ScheduleDetail() {
       .then((ok) => {
         console.log("ok", ok);
         setSchedule(ok);
+
+        if (ok.petId) {
+          petApi
+            .getOne(ok.petId)
+            .then((pet) => {
+              setPetDetails(pet);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -47,10 +61,27 @@ export default function ScheduleDetail() {
                 <p>
                   <div className="text-bold">Địa chỉ</div>: {schedule.address}
                 </p>
-                <p>
-                  <div className="text-bold">Loại thú cưng</div>:{" "}
-                  {schedule.typePet}
-                </p>
+                {/* Hiển thị thông tin thú cưng nếu có */}
+                {petDetails && (
+                  <>
+                    <p>
+                      <div className="text-bold">Tên thú cưng</div>:{" "}
+                      {petDetails.name}
+                    </p>
+                    {/* <p>
+                      <div className="text-bold">Loại thú cưng</div>:{" "}
+                      {petDetails.typePet}
+                    </p> */}
+                    <p>
+                      <div className="text-bold">Avatar</div>:{" "}
+                      <img
+                        src={petDetails.avatar}
+                        alt={petDetails.name}
+                        className="pet-avatar"
+                      />
+                    </p>
+                  </>
+                )}
                 <p>
                   <div className="text-bold">Cân nặng</div>:{" "}
                   {schedule.typeWeight}

@@ -19,6 +19,7 @@ import {
   twitter,
   useCheck,
   weight,
+  healthRecord,
 } from "../svg/IconSvg";
 import { clickActive } from "./NavJs";
 export default function NavMenu() {
@@ -118,6 +119,12 @@ export default function NavMenu() {
             <Link to={`${path}/Service`} id="Service">
               <div className="icon">{service}</div>
               <div className="text">Dịch vụ</div>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${path}/HealthRecord`} id="HealthRecord">
+              <div className="icon">{healthRecord}</div>
+              <div className="text">Quản lý hồ sơ sức khỏe</div>
             </Link>
           </li>
           <li>

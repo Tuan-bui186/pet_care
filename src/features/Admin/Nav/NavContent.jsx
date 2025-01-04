@@ -26,6 +26,9 @@ import AddTag from "../Tag/AddTag";
 import Tag from "../Tag/Tag";
 import AddWeight from "../Weight/AddWeight";
 import Weight from "../Weight/Weight";
+import HealthRecord from "../HealthRecord/HealthRecord";
+import addHealthRecord from "../HealthRecord/addHealthRecord";
+import editHealthRecord from "../HealthRecord/editHealthRecord";
 
 export default function NavContent() {
   const { path } = useRouteMatch();
@@ -119,6 +122,17 @@ export default function NavContent() {
           exact
           path={`${path}/Contact/AddContact/:id`}
           component={AddContact}
+        />
+        <Route exact path={`${path}/HealthRecord`} component={HealthRecord} />
+        <Route
+          exact
+          path={`${path}/HealthRecord/editHealthRecord/:id`}
+          component={editHealthRecord}
+        />
+        <Route
+          exact
+          path={`${path}/HealthRecord/addHealthRecord`}
+          component={addHealthRecord}
         />
         <Route exact path={`${path}/SocialNetwork`} component={SocialNetwork} />
         <Route

@@ -923,3 +923,21 @@ export const cart = (
     </g>
   </svg>
 );
+export const healthRecord = (
+  <svg
+    aria-hidden="true"
+    focusable="false"
+    data-prefix="fal"
+    data-icon="address-card"
+    role="img"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 512 512"
+    className="svg-inline--fa fa-address-card fa-w-16 fa-3x"
+  >
+    <path
+      fill="currentColor"
+      d="M496 64H16C7.163 64 0 71.163 0 80v352c0 8.837 7.163 16 16 16h480c8.837 0 16-7.163 16-16V80c0-8.837-7.163-16-16-16zM64 128c35.29 0 64-28.71 64-64s-28.71-64-64-64-64 28.71-64 64 28.71 64 64 64zM256 352h-48v-72h48v72zm0-128h-48V96h48v128zm192 128H288v-72h160v72zm0-128H288V96h160v128z"
+      className=""
+    ></path>
+  </svg>
+);

@@ -1,16 +1,23 @@
 .schedule-detail {
-    .title {
-        font-size: 1.5rem;
+  .title {
+    font-size: 1.5rem;
+  }
+  .form {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    p {
+      padding: 0.5rem 0;
     }
-    .form {
-        font-size: 1.2rem;
-        margin-top: 1rem;
-        p {
-            padding: 0.5rem 0;
-        }
-        .text-bold {
-            font-weight: bold;
-            display: inline;
-        }
+    .text-bold {
+      font-weight: bold;
+      display: inline;
     }
+  }
+}
+.schedule-detail .pet-avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 10px;
 }

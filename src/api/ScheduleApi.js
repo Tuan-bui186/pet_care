@@ -45,14 +45,17 @@ class ScheduleApi {
         messageShowErr("Có lỗi xảy ra!");
       });
   };
-  getSchedulesByUserId = (params) => {
-    const url = `/schedules/user/${params.userId}`;
+  getBookingHistoryByUserId = (params) => {
+    const url = `/schedules/user/${params}`;
+    console.log("Gọi API với URL:", url); // Log URL để kiểm tra chính xác yêu cầu
     return axiosClient
       .get(url)
       .then((data) => {
+        console.log("Dữ liệu trả về từ API:", data); // Log dữ liệu trả về từ API
         return data.data;
       })
       .catch((err) => {
+        console.error("Lỗi khi gọi API:", err); // Log lỗi nếu có
         messageShowErr("Có lỗi xảy ra khi lấy lịch trình của người dùng!");
       });
   };

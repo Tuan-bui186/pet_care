@@ -14,6 +14,7 @@ import "../../sass/RegisterService/RegisterService.scss";
 import Banner from "../Banner/Banner";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 import userApi from "../../api/userApi";
+import petApi from "../../api/petApi";
 
 export default function RegisterService() {
   const listBread = [
@@ -30,6 +31,8 @@ export default function RegisterService() {
   const [data, setData] = useState(null);
   const [weight, setWeight] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [pets, setPets] = useState([]);
+  const [selectedPet, setSelectedPet] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -51,7 +54,18 @@ export default function RegisterService() {
       setWeight(dataWeight);
     });
     userApi.checkUser().then((ok) => {
-      setUserId({ userId: ok.id });
+      setUserId(ok.id);
+    });
+    userApi.checkUser().then((ok) => {
+      setUserId(ok.id);
+      petApi.getPetUser(ok.id).then((response) => {
+        console.log("Dữ liệu pets:", response); // Kiểm tra dữ liệu trả về
+        const petOptions = response.rows.map((pet) => ({
+          value: pet.id,
+          label: pet.name,
+        }));
+        setPets(petOptions);
+      });
     });
   }, []);
 
@@ -87,6 +101,7 @@ export default function RegisterService() {
       typeWeight,
       date,
       userId,
+      petId: selectedPet?.value,
     });
   };
 
@@ -181,13 +196,22 @@ export default function RegisterService() {
                   ""
                 )}
               </div>
-              <div className="input-admin">
+              {/* <div className="input-admin">
                 <label htmlFor="">Loại thú cưng</label>
                 <Select
                   closeMenuOnSelect={false}
                   onChange={onchangeTypePet}
                   defaultValue={[{ value: "chó", label: "chó" }]}
                   options={dataType}
+                />
+              </div> */}
+              <div className="input-admin">
+                <label htmlFor="">Chọn thú cưng</label>
+                <Select
+                  closeMenuOnSelect={false}
+                  options={pets}
+                  onChange={(e) => setSelectedPet(e)}
+                  placeholder="Chọn thú cưng của bạn"
                 />
               </div>
               <div className="input-admin">

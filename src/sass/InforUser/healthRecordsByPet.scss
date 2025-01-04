@@ -1,0 +1,80 @@
+.health-records {
+  padding: 20px;
+  margin-top: 60px; // Khoảng cách từ đầu trang đến header (có thể điều chỉnh)
+
+  h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px; // Khoảng cách dưới header
+    text-align: center;
+  }
+
+  .pet-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px; // Khoảng cách giữa header và thông tin thú cưng
+
+    .pet-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-right: 15px;
+      object-fit: cover;
+    }
+
+    .pet-name {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e67e22; /* Màu cam */
+    }
+  }
+
+  .table-container {
+    display: block;
+    overflow-x: auto;
+    margin-top: 40px; // Khoảng cách giữa bảng và các phần phía trên
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        font-size: 16px;
+      }
+
+      th {
+        background-color: #e67e22; /* Màu cam */
+        color: #fff;
+      }
+
+      td {
+        background-color: #f9f9f9;
+      }
+
+      .record-row:hover {
+        background-color: #ecf0f1;
+        cursor: pointer;
+      }
+
+      .no-records {
+        text-align: center;
+        color: #95a5a6;
+        font-size: 18px;
+      }
+    }
+  }
+
+  .loading,
+  .error {
+    font-size: 18px;
+    color: #e74c3c;
+    text-align: center;
+  }
+}

@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import healthRecordApi from "../../../api/healthRecordApi";
-import petApi from "../../../api/petApi";
 import { messageShowErr, messageShowSuccess } from "../../../function";
-import Spinner from "../Spin/Spinner";
+import { Link } from "react-router-dom";
+import petApi from "../../../api/petApi";
 import "../../../sass/Admin/addHealthRecord.scss";
 
 export default function AddHealthRecord() {
+  const [diagnosis, setDiagnosis] = useState("");
+  const [prescription, setPrescription] = useState("");
+  const [dietPlan, setDietPlan] = useState("");
+  const [date, setDate] = useState("");
+  const [petId, setPetId] = useState(""); // Trạng thái lưu ID thú cưng đã chọn
   const [pets, setPets] = useState([]); // Trạng thái lưu danh sách thú cưng
   const [loading, setLoading] = useState(false);
-  const [state, setState] = useState({
-    loadSpin: false,
-  });
-  const { loadSpin } = state;
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+
   const history = useHistory();
 
   useEffect(() => {
     const fetchPets = async () => {
       try {
         const response = await petApi.getAll();
+        console.log("Dữ liệu trả về từ API pets: ", response); // Kiểm tra lại cấu trúc dữ liệu
         if (response && response.data && Array.isArray(response.data.rows)) {
           setPets(response.data.rows); // Truy cập vào 'data.rows' để lấy danh sách thú cưng
         } else {
@@ -33,28 +29,36 @@ export default function AddHealthRecord() {
         }
       } catch (error) {
         messageShowErr("Không thể lấy danh sách thú cưng!");
-        setPets([]);
+        console.error("Lỗi khi gọi API lấy thú cưng: ", error); // Kiểm tra lỗi
+        setPets([]); // Nếu có lỗi, khởi tạo mảng rỗng
       }
     };
     fetchPets();
   }, []);
 
-  const onSubmit = async (data) => {
-    setState({ ...state, loadSpin: true });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!diagnosis || !prescription || !dietPlan || !date || !petId) {
+      messageShowErr("Vui lòng điền đầy đủ thông tin!");
+      return;
+    }
+
+    setLoading(true);
     try {
       await healthRecordApi.create({
-        diagnosis: data.diagnosis,
-        prescription: data.prescription,
-        dietPlan: data.dietPlan,
-        date: data.date,
-        petId: data.petId,
+        diagnosis,
+        prescription,
+        dietPlan,
+        date,
+        petId, // Thêm ID thú cưng vào dữ liệu gửi lên
       });
       messageShowSuccess("Thêm hồ sơ sức khỏe thành công!");
       history.push("/Admin/HealthRecord");
     } catch (error) {
       messageShowErr("Có lỗi khi thêm hồ sơ!");
     }
-    setState({ ...state, loadSpin: false });
+    setLoading(false);
   };
 
   return (
@@ -62,73 +66,56 @@ export default function AddHealthRecord() {
       <div className="heading">
         <h3>Thêm Hồ Sơ Sức Khỏe</h3>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Chẩn đoán:</label>
           <input
             type="text"
-            {...register("diagnosis", {
-              required: "Không được bỏ trống!",
-              maxLength: {
-                value: 255,
-                message: "Vượt quá ký tự cho phép!",
-              },
-            })}
+            value={diagnosis}
+            onChange={(e) => setDiagnosis(e.target.value)}
+            placeholder="Nhập chẩn đoán"
+            required
           />
-          {errors.diagnosis && (
-            <span className="text-danger">{errors.diagnosis.message}</span>
-          )}
         </div>
 
         <div className="form-group">
           <label>Đơn thuốc:</label>
           <input
             type="text"
-            {...register("prescription", {
-              required: "Không được bỏ trống!",
-              maxLength: {
-                value: 255,
-                message: "Vượt quá ký tự cho phép!",
-              },
-            })}
+            value={prescription}
+            onChange={(e) => setPrescription(e.target.value)}
+            placeholder="Nhập đơn thuốc"
+            required
           />
-          {errors.prescription && (
-            <span className="text-danger">{errors.prescription.message}</span>
-          )}
         </div>
 
         <div className="form-group">
           <label>Kế hoạch dinh dưỡng:</label>
           <input
             type="text"
-            {...register("dietPlan", {
-              required: "Không được bỏ trống!",
-              maxLength: {
-                value: 500,
-                message: "Vượt quá ký tự cho phép!",
-              },
-            })}
+            value={dietPlan}
+            onChange={(e) => setDietPlan(e.target.value)}
+            placeholder="Nhập kế hoạch dinh dưỡng"
+            required
           />
-          {errors.dietPlan && (
-            <span className="text-danger">{errors.dietPlan.message}</span>
-          )}
         </div>
 
         <div className="form-group">
           <label>Ngày khám:</label>
           <input
             type="date"
-            {...register("date", { required: "Không được bỏ trống!" })}
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
           />
-          {errors.date && (
-            <span className="text-danger">{errors.date.message}</span>
-          )}
         </div>
 
         <div className="form-group">
           <label>Chọn thú cưng:</label>
           <select
-            {...register("petId", { required: "Vui lòng chọn thú cưng!" })}
+            value={petId}
+            onChange={(e) => setPetId(e.target.value)}
+            required
           >
             <option value="">Chọn thú cưng</option>
             {pets && pets.length > 0 ? (
@@ -141,17 +128,12 @@ export default function AddHealthRecord() {
               <option disabled>Không có thú cưng</option>
             )}
           </select>
-          {errors.petId && (
-            <span className="text-danger">{errors.petId.message}</span>
-          )}
         </div>
 
         <div className="form-actions">
-          {loadSpin ? (
-            <Spinner />
-          ) : (
-            <button type="submit">Thêm hồ sơ sức khỏe</button>
-          )}
+          <button type="submit" disabled={loading}>
+            {loading ? "Đang thêm..." : "Thêm hồ sơ sức khỏe"}
+          </button>
         </div>
       </form>
     </div>

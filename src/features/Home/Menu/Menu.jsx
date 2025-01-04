@@ -105,6 +105,10 @@ export default function Menu({ user, setUserMenu }) {
               <li className="item">
                 <Link to="/ListNews">Tin tức</Link>
               </li>
+              <li className="item">
+              <Link to={`/schedules/user/${user.id}`}>Lịch sử đặt lịch</Link>
+
+              </li>
               {user.length !== 0 && (
                 <li className="item">
                   <Link to="/Admin">Admin</Link>

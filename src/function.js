@@ -1,11 +1,17 @@
 import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 export const formatDate = (e) => {
-  var year = e.substr(0, 4);
-  var month = e.substr(5, 2);
-  var day = e.substr(8, 2);
-  return day + "/" + month + "/" + year;
+  if (!(e instanceof Date)) {
+    e = new Date(e); // Nếu e không phải là đối tượng Date, chuyển thành Date
+  }
+
+  const year = e.getFullYear();
+  const month = (e.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0, nên phải cộng thêm 1
+  const day = e.getDate().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year}`;
 };
+
 export const checkArrayEquar = (a, b) => {
   if (a.length !== b.length) {
     return false;

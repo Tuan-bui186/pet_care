@@ -1,7 +1,7 @@
 import { Grid, Tooltip } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import renderHTML from "react-render-html";
-import { useParams } from "react-router";
+import { useParams, Link } from "react-router-dom";
 import petApi from "../../../api/petApi";
 import { messageShowErr, messageShowSuccess } from "../../../function";
 import "../../../sass/InforUser/MyPet.scss";
@@ -141,7 +141,9 @@ export default function MyPet() {
                   Đăng bán
                 </p>
               )} */}
-              <p className="btn-history">Lịch sử khám</p>
+              <Link to={`/healthRecord/${ok.id}`} className="btn-history">
+                Hồ sơ sức khỏe
+              </Link>
             </div>
           </Grid>
         ))}

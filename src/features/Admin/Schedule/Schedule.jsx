@@ -9,7 +9,7 @@ import Table from "../Table/Table";
 export default function Schedule() {
   const { url } = useRouteMatch();
   const titleTable = [
-    { title: "Người mua", name: "name" },
+    { title: "Người đặt", name: "name" },
     { title: "Điện thoại", name: "phone" },
     { title: "Địa chỉ", name: "address" },
     { title: "Chi tiết", name: "detail" },

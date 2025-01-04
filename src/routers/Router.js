@@ -15,6 +15,7 @@ import RegisterService from "../features/RegisterService/RegisterService";
 import DetailPet from "../features/Shop/DetailPet/DetailPet";
 import ShopPet from "../features/Shop/ShopPet/ShopPet";
 import History from "../features/history/history.jsx";
+import HealthRecord from "../features/InforUser/Panes/HealthRecord.jsx";
 
 const Routers = (props) => {
   const { location } = props;
@@ -63,6 +64,7 @@ const Routers = (props) => {
         <Route path="/Login" component={Login} />
         <Route path="/Register" component={Register} />
         <Route path="/RegisterService/:id" component={RegisterService} />
+        <Route path="/HealthRecord/:petId" component={HealthRecord} />
         <Route
           path="/InforUser/:id"
           render={() => {
