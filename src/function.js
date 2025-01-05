@@ -2,11 +2,11 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 export const formatDate = (e) => {
   if (!(e instanceof Date)) {
-    e = new Date(e); // Nếu e không phải là đối tượng Date, chuyển thành Date
+    e = new Date(e); 
   }
 
   const year = e.getFullYear();
-  const month = (e.getMonth() + 1).toString().padStart(2, "0"); // Tháng bắt đầu từ 0, nên phải cộng thêm 1
+  const month = (e.getMonth() + 1).toString().padStart(2, "0"); 
   const day = e.getDate().toString().padStart(2, "0");
 
   return `${day}/${month}/${year}`;

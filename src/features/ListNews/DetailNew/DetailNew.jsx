@@ -101,9 +101,9 @@ export default function DetailNew() {
                 </div>
               </div>
               <div className="hr"></div>
-              <div className="poster">
+              {/* <div className="poster">
                 <img src={img2} alt="" />
-              </div>
+              </div> */}
             </div>
           </Grid>
         </Grid>
